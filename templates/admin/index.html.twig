@@ -9,13 +9,37 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1 class="display-4">Hello Admin!</h1>
 
-    All users
-    <ul>
+    <p  class="lead">Manage all users</p>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-center">
+                    <a class="btn btn-success">Add new user</a>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
         {% for user in users %}
-            <li>{{ user.username }}</li>
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <a class="btn btn-info btn-small">
+                        Edit
+                    </a>
+                </td>
+            </tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
 </div>
 {% endblock %}
