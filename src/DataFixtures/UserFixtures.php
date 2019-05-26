@@ -6,15 +6,17 @@ use App\Entity\User;
 use App\Services\NameGenerator;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
     private $nameGenerator;
+    private $passwordEncoder;
 
-    public function __construct(NameGenerator $nameGenerator)
+    public function __construct(NameGenerator $nameGenerator, UserPasswordEncoderInterface $passwordEncoder)
     {
-//        parent::__construct();
         $this->nameGenerator = $nameGenerator;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function load(ObjectManager $manager)
@@ -23,7 +25,8 @@ class UserFixtures extends Fixture
             $user = new User();
             $user->setName($this->nameGenerator->getNewName());
             $user->setEmail("user{$i}@ito.dev");
-            $user->setPassword("123456");
+            $password = $this->passwordEncoder->encodePassword($user, '123456');
+            $user->setPassword($password);
             $manager->persist($user);
         }
 
