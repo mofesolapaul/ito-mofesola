@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Welcome{% endblock %}
 
 {% block body %}
 <style>
@@ -27,6 +27,6 @@
 </style>
 
 <div class="home-wrapper">
-    <h1 class="text-center display-4">Hello {{ app.user.name }}!</h1>
+    <h1 class="text-center display-4">Hello {{ app.user.name ?? 'Admin' }}!</h1>
 </div>
 {% endblock %}
