@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create user{% endblock %}
+{% block title %}{{ button_label ?? "Create user" }}{% endblock %}
 
 {% block body %}
 <form class="col-md-4 offset-md-4" method="post">
@@ -11,7 +11,7 @@
 
         <div class="offset-sm-2 col-sm-10">
             <div class="row">
-                <input type="submit" class="btn btn-primary" value="Create user" >
+                <input type="submit" class="btn btn-primary" value="{{ button_label ?? "Create user" }}" >
             </div>
         </div>
     {{ form_end(user_form) }}
