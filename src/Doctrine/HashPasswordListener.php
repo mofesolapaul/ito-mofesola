@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mb-pro-home
- * Date: 2019-05-28
- * Time: 11:24
- */
-
 namespace App\Doctrine;
-
 
 use App\Entity\User;
 use Doctrine\Common\EventSubscriber;

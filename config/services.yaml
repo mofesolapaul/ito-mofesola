@@ -31,3 +31,8 @@ services:
         autowire: true
         tags:
             - { name: doctrine.event_subscriber }
+    app.doctrine.email_notification_listener:
+        class: App\Doctrine\EmailNotificationListener
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }

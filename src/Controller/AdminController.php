@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,7 +30,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/user/create", name="user_create")
      */
-    public function addUser(Request $request, EntityManagerInterface $entityManager) {
+    public function addUser(Request $request, EntityManagerInterface $entityManager, \Swift_Mailer $mailer) {
         $userForm = $this->createForm(UserType::class, new User());
 
         $userForm->handleRequest($request);
@@ -40,6 +41,15 @@ class AdminController extends AbstractController
             $userFormData->setLastLoginDate(new \DateTime());
             $entityManager->persist($userFormData);
             $entityManager->flush();
+
+            $message = (new Swift_Message('Welcome to iTo'))
+                ->setFrom('mpdepaule1@gmail.com')
+                ->setTo('silly.pacote@mailinator.com')
+                ->setBody(
+                    sprintf("Hello %s, and welcome to iTo. Cheers!", $userFormData->getName()),
+                    'text/plain'
+                );
+            $mailer->send($message);
 
             return $this->redirectToRoute('admin');
         }
