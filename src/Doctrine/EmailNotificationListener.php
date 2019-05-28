@@ -37,7 +37,12 @@ class EmailNotificationListener implements EventSubscriber
             ->setFrom('app@ito.dev', 'iTo Awesome App')
             ->setTo('silly.pacote@mailinator.com')
             ->setBody(
-                sprintf("Hello %s, and welcome to iTo. Cheers!", $user->getName()),
+                sprintf("
+                    Hello %s, and welcome to iTo.\n\n
+                    Login with:\n
+                    Email: '%s'\n
+                    Password: %s\n\n
+                    Cheers!", $user->getName(), $user->getEmail(), $user->getPlainPassword()),
                 'text/plain'
             );
         $this->mailer->send($message);
