@@ -16,7 +16,7 @@ class HashPasswordListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return ['prePersist', 'preUpdate'];
+        return ['prePersist'];
     }
 
     public function prePersist(LifecycleEventArgs $args) {
@@ -25,10 +25,6 @@ class HashPasswordListener implements EventSubscriber
             return;
         }
         $this->encodePassword($entity);
-    }
-
-    public function preUpdate(LifecycleEventArgs $args) {
-        return;
     }
 
     private function encodePassword(User $entity) {

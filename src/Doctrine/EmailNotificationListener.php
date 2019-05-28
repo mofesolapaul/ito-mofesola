@@ -15,19 +15,15 @@ class EmailNotificationListener implements EventSubscriber
 
     public function getSubscribedEvents()
     {
-        return ['prePersist', 'preUpdate'];
+        return ['postPersist'];
     }
 
-    public function prePersist(LifecycleEventArgs $args) {
+    public function postPersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
             return;
         }
         $this->sendEmail($entity);
-    }
-
-    public function preUpdate(LifecycleEventArgs $args) {
-        return;
     }
 
     private function sendEmail(User $user) {
