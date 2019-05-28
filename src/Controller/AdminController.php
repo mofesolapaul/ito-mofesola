@@ -42,15 +42,6 @@ class AdminController extends AbstractController
             $entityManager->persist($userFormData);
             $entityManager->flush();
 
-            $message = (new Swift_Message('Welcome to iTo'))
-                ->setFrom('mpdepaule1@gmail.com')
-                ->setTo('silly.pacote@mailinator.com')
-                ->setBody(
-                    sprintf("Hello %s, and welcome to iTo. Cheers!", $userFormData->getName()),
-                    'text/plain'
-                );
-            $mailer->send($message);
-
             return $this->redirectToRoute('admin');
         }
 

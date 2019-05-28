@@ -33,13 +33,13 @@ class EmailNotificationListener implements EventSubscriber
     }
 
     private function sendEmail(User $user) {
-//        $message = (new \Swift_Message('Welcome to iTo'))
-//            ->setFrom('people@ito.dev')
-//            ->setTo('silly.pacote@mailinator.com')
-//            ->setBody(
-//                sprintf("Hello %s, and welcome to iTo. Cheers!", $user->getName()),
-//                'text/plain'
-//            );
-//        $this->mailer->send($message);
+        $message = (new \Swift_Message('Welcome to iTo'))
+            ->setFrom('app@ito.dev', 'iTo Awesome App')
+            ->setTo('silly.pacote@mailinator.com')
+            ->setBody(
+                sprintf("Hello %s, and welcome to iTo. Cheers!", $user->getName()),
+                'text/plain'
+            );
+        $this->mailer->send($message);
     }
 }
