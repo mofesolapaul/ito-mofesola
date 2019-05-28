@@ -67,7 +67,7 @@ class AdminController extends AbstractController
     public function editUser(User $user, Request $request, EntityManagerInterface  $entityManager) {
 
         $userForm = $this->createForm(UserType::class, $user);
-        $userForm->remove('password');
+        $userForm->remove('plainPassword');
 
         $userForm->handleRequest($request);
 
