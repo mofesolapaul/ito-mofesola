@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ button_label ?? "Create user" }}{% endblock %}
+
+{% block body %}
+<form class="col-md-4 offset-md-4" method="post">
+    <h1 class="h3 mb-3 font-weight-normal">{{ form_title ?? 'User form' }}</h1>
+    <hr>
+    {{ form_start(user_form) }}
+        {{ form_widget(user_form) }}
+
+        <div class="offset-sm-2 col-sm-10">
+            <div class="row">
+                <input type="submit" class="btn btn-primary" value="{{ button_label ?? "Create user" }}" >
+            </div>
+        </div>
+    {{ form_end(user_form) }}
+</form>
+{% endblock %}

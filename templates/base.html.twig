@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome{% endblock %} - iTo Task</title>
+
+        {# Required meta tags #}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {# Essential CSS #}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        {# Other CSS #}
+        <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand navbar-brand-extended" href="#">
+                <svg height="40.156" viewBox="0 0 47.468 40.156" width="40.468" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m170.533 58.667a8.516 8.516 0 1 1 8.517-8.517 8.516 8.516 0 0 1 -8.517 8.517zm0-12.167a3.65 3.65 0 1 0 3.65 3.65 3.651 3.651 0 0 0 -3.65-3.65zm-26.766-8.517h3.65v3.651h-3.65zm3.65 20.684h-3.65v-15.816h3.65zm6.083 0v-17.033h-3.65v-3.651h10.95v3.651h-3.65v17.033zm14.6-17.931v-.319a8.517 8.517 0 0 0 -8.517-8.516h-15.816a8.517 8.517 0 0 0 -8.517 8.516v15.817a8.516 8.516 0 0 0 8.517 8.517h15.816a8.515 8.515 0 0 0 7.906-5.359 9.7 9.7 0 0 0 3.044.493c.227 0 .448-.019.671-.034a12.172 12.172 0 0 1 -11.621 8.549h-15.816a12.167 12.167 0 0 1 -12.167-12.166v-15.817a12.167 12.167 0 0 1 12.167-12.167h15.816a12.167 12.167 0 0 1 12.167 12.167v.083a9.232 9.232 0 0 0 -3.65.236z" fill="#fff" fill-rule="evenodd" transform="translate(-131.594 -28.25)"></path>
+                </svg>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin') }}" tabindex="-1" aria-disabled="true">Dashboard</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('logout') }}" tabindex="-1" aria-disabled="true">Logout</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <div class="ito-wrapper container-fluid">
+            {% block body %}{% endblock %}
+        </div>
+
+        {# Essential JS #}
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        {# Other JS #}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

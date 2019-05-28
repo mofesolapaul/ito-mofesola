@@ -1,0 +1,46 @@
+security:
+    providers:
+        chain_provider:
+            chain:
+                providers: ['admin_users', 'users']
+        admin_users:
+            memory:
+                users:
+                    -
+                        name: 'admin@ito.dev'
+                        password: $2y$13$C5W4j7JmVU7/PzeWOCavuObFvjLioSRx5VyCfXTS/..Pjri6dWzqa
+                        roles: ROLE_ADMIN
+        users:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            provider: chain_provider
+            form_login: ~
+            logout:
+                path: logout
+                target: home
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            access_denied_url: /
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/home, roles: ROLE_USER }
+
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
