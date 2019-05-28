@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mb-pro-home
- * Date: 2019-05-26
- * Time: 10:34
- */
 
 namespace App\Services;
 
@@ -29,7 +23,7 @@ class NameGenerator
         'Harle',
     ];
 
-    public function getNewName() : string
+    public final function getNewName() : string
     {
         $adjective = self::adjectives[array_rand(self::adjectives)];
         $name = self::names[array_rand(self::names)];

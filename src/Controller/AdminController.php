@@ -6,9 +6,9 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -19,7 +19,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin")
      */
-    public function index(UserRepository $userRepository)
+    public final function index(UserRepository $userRepository) : Response
     {
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
@@ -30,7 +30,11 @@ class AdminController extends AbstractController
     /**
      * @Route("/user/create", name="user_create")
      */
-    public function addUser(Request $request, EntityManagerInterface $entityManager, \Swift_Mailer $mailer) {
+    public final function addUser(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        \Swift_Mailer $mailer
+    ) : Response {
         $userForm = $this->createForm(UserType::class, new User());
 
         $userForm->handleRequest($request);
@@ -47,14 +51,15 @@ class AdminController extends AbstractController
 
         return $this->render('forms/user.html.twig', [
             'user_form' => $userForm->createView(),
-            'form_title'  => 'Add new user',
+            'form_title' => 'Add new user',
         ]);
     }
 
     /**
      * @Route("/user/{id}/remove", name="user_delete")
      */
-    public function deleteUser(User $user, EntityManagerInterface  $entityManager) {
+    public final function deleteUser(User $user, EntityManagerInterface $entityManager) : Response
+    {
         $entityManager->remove($user);
         $entityManager->flush();
 
@@ -64,8 +69,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/user/{id}/edit", name="user_edit")
      */
-    public function editUser(User $user, Request $request, EntityManagerInterface  $entityManager) {
-
+    public final function editUser(User $user, Request $request, EntityManagerInterface $entityManager) : Response
+    {
         $userForm = $this->createForm(UserType::class, $user);
         $userForm->remove('plainPassword');
 
@@ -80,8 +85,8 @@ class AdminController extends AbstractController
 
         return $this->render('forms/user.html.twig', [
             'user_form' => $userForm->createView(),
-            'form_title'  => "Edit user: {$user->getName()}",
-            'button_label'  => "Update details",
+            'form_title' => "Edit user: {$user->getName()}",
+            'button_label' => "Update details",
         ]);
     }
 }

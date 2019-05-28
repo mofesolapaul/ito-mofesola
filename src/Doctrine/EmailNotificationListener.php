@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Doctrine;
 
 use App\Entity\User;
@@ -8,17 +9,19 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 class EmailNotificationListener implements EventSubscriber
 {
     private $mailer;
+
     public function __construct(\Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
     }
 
-    public function getSubscribedEvents()
+    public final function getSubscribedEvents(): array
     {
         return ['postPersist'];
     }
 
-    public function postPersist(LifecycleEventArgs $args) {
+    public final function postPersist(LifecycleEventArgs $args): void
+    {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
             return;
@@ -26,7 +29,8 @@ class EmailNotificationListener implements EventSubscriber
         $this->sendEmail($entity);
     }
 
-    private function sendEmail(User $user) {
+    private function sendEmail(User $user): void
+    {
         $message = (new \Swift_Message('Welcome to iTo'))
             ->setFrom('app@ito.dev', 'iTo Awesome App')
             ->setTo($user->getEmail())

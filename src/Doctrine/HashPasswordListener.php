@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Doctrine;
 
 use App\Entity\User;
@@ -9,17 +10,19 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class HashPasswordListener implements EventSubscriber
 {
     private $passwordEncoder;
+
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    public function getSubscribedEvents()
+    public final function getSubscribedEvents(): array
     {
         return ['prePersist'];
     }
 
-    public function prePersist(LifecycleEventArgs $args) {
+    public final function prePersist(LifecycleEventArgs $args): void
+    {
         $entity = $args->getEntity();
         if (!$entity instanceof User) {
             return;
@@ -27,7 +30,8 @@ class HashPasswordListener implements EventSubscriber
         $this->encodePassword($entity);
     }
 
-    private function encodePassword(User $entity) {
+    private function encodePassword(User $entity): void
+    {
         if (!$entity->getPlainPassword()) {
             return;
         }
