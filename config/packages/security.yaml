@@ -35,6 +35,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/home, roles: ROLE_USER }
+        - { path: ^/$, roles: ROLE_USER }
 
     encoders:
         App\Entity\User:
