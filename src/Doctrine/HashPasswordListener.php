@@ -35,6 +35,10 @@ class HashPasswordListener implements EventSubscriber
         $this->encodePassword($entity);
     }
 
+    public function preUpdate(LifecycleEventArgs $args) {
+        return;
+    }
+
     private function encodePassword(User $entity) {
         if (!$entity->getPlainPassword()) {
             return;
