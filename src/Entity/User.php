@@ -38,6 +38,8 @@ class User implements UserInterface
      */
     private $password;
 
+    private $plainPassword;
+
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
@@ -126,6 +128,18 @@ class User implements UserInterface
         return $this->password;
     }
 
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     public function getSalt()
     {
         return null;
@@ -133,6 +147,6 @@ class User implements UserInterface
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->plainPassword = null;
     }
 }
