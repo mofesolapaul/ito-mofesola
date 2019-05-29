@@ -32,8 +32,7 @@ class AdminController extends AbstractController
      */
     public final function addUser(
         Request $request,
-        EntityManagerInterface $entityManager,
-        \Swift_Mailer $mailer
+        EntityManagerInterface $entityManager
     ) : Response {
         $userForm = $this->createForm(UserType::class, new User());
 
