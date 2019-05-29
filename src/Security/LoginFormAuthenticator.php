@@ -92,6 +92,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         if ($this->user instanceof User) {
             try {
                 $this->user->setLastLoginDate(new \DateTime());
+                $this->user->setIsActive(true);
             } catch (\Exception $e) {
             }
             $this->entityManager->persist($this->user);

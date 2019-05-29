@@ -51,6 +51,11 @@ class User implements UserInterface
      */
     private $lastLoginDate;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $isActive;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -148,5 +153,17 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         $this->plainPassword = null;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
     }
 }
